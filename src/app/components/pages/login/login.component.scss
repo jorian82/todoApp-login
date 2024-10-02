@@ -1,0 +1,251 @@
+$white: #fff;
+$black: #333;
+$main-color: #2980b9;
+$sec-color: #3498db;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  position: relative;
+  margin:100px auto;
+  background: $white;
+  box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  width: 800px;
+  max-width: 800px;
+  min-height: 480px;
+  overflow: hidden;
+}
+
+.animateWidth {
+  -webkit-animation: animateWidth 0.8s linear forwards;
+  animation: animateWidth 0.8s linear forwards;
+}
+
+@-webkit-keyframes animateWidth {
+  0% {
+    width: 35%;
+  }
+  20% {
+    width: 50%;
+  }
+  100% {
+    width: 35%;
+  }
+}
+@keyframes animateWidth {
+  0% {
+    width: 35%;
+  }
+  20% {
+    width: 50%;
+  }
+  100% {
+    width: 35%;
+  }
+}
+
+.form__container {
+  position: absolute;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 65%;
+  height: 100%;
+  padding: 25px;
+  text-align: center;
+  background: $white;
+  transition: all 0.6s ease-in;
+
+  &-login {
+    .go-login & {
+      left: 35%;
+      opacity: 0;
+    }
+    .go-register & {
+      left: 0;
+      opacity: 1;
+      z-index: 0;
+    }
+  }
+
+  &-register {
+    .go-login & {
+      left: 35%;
+      opacity: 1;
+      z-index: 0;
+    }
+    .go-register & {
+      left: 0;
+      opacity: 0;
+    }
+  }
+}
+
+.btn-overlay {
+  background-color: $white;
+}
+
+.form {
+  width: 100%;
+  &__heading {
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+  &__field {
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 15px;
+    margin-bottom: 15px;
+    background: #f4f8f7;
+    border: none;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      text-transform: capitalize;
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+      text-transform: capitalize;
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+      text-transform: capitalize;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+      text-transform: capitalize;
+    }
+    &:focus, &:active {
+      outline: 0;
+    }
+  }
+  &__text {
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+}
+
+.list {
+  padding-left: 0;
+  &__inline {
+    margin-bottom: 15px;
+    .list__item {
+      display: inline-block;
+      margin-left: 5px;
+      margin-right: 5px;
+      border: 1px solid $black;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+    .list__link {
+      color: $black;
+      text-decoration: none;
+    }
+
+    .list__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+  }
+}
+
+.overlay-container {
+  position: absolute;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 35%;
+  text-align: center;
+  background: linear-gradient(45deg, $main-color, $sec-color);
+  transition: all 0.8s cubic-bezier(.67,.67,.34,.95);
+
+  .go-login & {
+    right: 65%;
+  }
+  .go-register & {
+    right: 0;
+  }
+}
+
+
+
+.overlay {
+  padding: 25px;
+  color: $white;
+  position: absolute;
+  width: 100%;
+
+  &__heading {
+    font-size: 32px;
+    margin-bottom: 15px;
+  }
+
+  &__desc {
+    max-width: 230px;
+    width: 230px;
+    margin: auto;
+    margin-bottom: 15px;
+  }
+  &--left {
+    opacity: 0;
+    z-index: 99;
+    .go-login & {
+      z-index: 99;
+      opacity: 1;
+    }
+    .go-register & {
+      opacity: 0;
+      z-index: -1;
+    }
+  }
+
+  &--right {
+    opacity: 0;
+    z-index: 99;
+    .go-login & {
+      opacity: 0;
+      z-index: -1;
+    }
+    .go-register & {
+      z-index: 99;
+      opacity: 1;
+    }
+  }
+}
+
+.btn {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  &--main {
+    background: linear-gradient(45deg, $main-color, $sec-color);
+    color: $white;
+  }
+
+  &--main-outline {
+    border: 2px solid linear-gradient(45deg, $main-color, $sec-color);
+    color: $main-color;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  &:focus, &:active {
+    outline: 0;
+  }
+}
