@@ -22,8 +22,8 @@
         </li>
       </ul>
       <p class="form__text">or use your account</p>
-      <input type="email" placeholder="email" [(ngModel)]="loginObj.username" class="form__field">
-      <input type="password" placeholder="password" [(ngModel)]="loginObj.password" class="form__field">
+      <input type="email" name="email" placeholder="email" [(ngModel)]="loginObj.username" class="form__field">
+      <input type="password" name="password" placeholder="password" [(ngModel)]="loginObj.password" class="form__field">
       <p class="form__text">Forgot your password?</p>
       <button type="submit" class="btn btn--main" (click)="onLogin()">Sign In</button>
     </form>
@@ -51,9 +51,9 @@
         </li>
       </ul>
       <p class="form__text">or use your email for registeration</p>
-      <input type="text" placeholder="name" [(ngModel)]="signUpObj.name" class="form__field">
-      <input type="email" placeholder="email" [(ngModel)]="signUpObj.email" class="form__field">
-      <input type="password" placeholder="password" [(ngModel)]="signUpObj.password" class="form__field">
+      <input type="text" name="name" placeholder="name" [(ngModel)]="signUpObj.name" class="form__field">
+      <input type="email" name="email" placeholder="email" [(ngModel)]="signUpObj.email" class="form__field">
+      <input type="password" name="password" placeholder="password" [(ngModel)]="signUpObj.password" class="form__field">
       <button type="submit" class="btn btn--main" (click)="onRegister()">Sign Up</button>
     </form>
   </div>
