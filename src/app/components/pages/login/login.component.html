@@ -1,79 +1,52 @@
+<div class="container" id="container" [ngClass]="activeForm">
+  <div class="form-container sign-up">
+    <form action="#">
+      <h1>Create Account</h1>
+      <div class="social-icons">
+        <a href="#" class="icon"><fa-icon [icon]="faGoogle"></fa-icon></a>
+        <a href="#" class="icon"><fa-icon [icon]="faFacebookF"></fa-icon></a>
+        <a href="#" class="icon"><fa-icon [icon]="faLinkedinIn"></fa-icon></a>
+        <a href="#" class="icon"><fa-icon [icon]="faXTwitter"></fa-icon></a>
+      </div>
+      <span>or use your email for register</span>
+      <input type="text"     [(ngModel)]="signUpObj.name"     name="name" placeholder="Full Name">
+      <input type="email"    [(ngModel)]="signUpObj.email"    name="email" placeholder="Email">
+      <input type="password" [(ngModel)]="signUpObj.password" name="psswd" placeholder="Password">
+      <button (click)="onRegister()">Sign Up</button>
+    </form>
+  </div>
 
-<div class="container" [ngClass]="activeForm">
-  <!-- Login Form Starts -->
-  <div class="form__container form__container-login" *ngIf="isLoginForm">
-    <form action="" class="form">
-      <h3 class="form__heading"> Sign In</h3>
-      <ul class="list list__inline list__social">
-        <li class="list__item list__social__item">
-          <a href="#" class="list__link">
-            <fa-icon [icon]="faFacebookF"></fa-icon>
-          </a>
-        </li>
-        <li class="list__item list__social__item">
-          <a href="#" class="list__link">
-            <fa-icon [icon]="faGooglePlusG"></fa-icon>
-          </a>
-        </li>
-        <li class="list__item list__social__item">
-          <a href="#" class="list__link">
-            <fa-icon [icon]="faLinkedinIn"></fa-icon>
-          </a>
-        </li>
-      </ul>
-      <p class="form__text">or use your account</p>
-      <input type="email" name="email" placeholder="email" [(ngModel)]="loginObj.username" class="form__field">
-      <input type="password" name="password" placeholder="password" [(ngModel)]="loginObj.password" class="form__field">
-      <p class="form__text">Forgot your password?</p>
-      <button type="submit" class="btn btn--main" (click)="onLogin()">Sign In</button>
+  <div class="form-container sign-in">
+    <form action="#">
+      <h1>Sign In</h1>
+      <div class="social-icons">
+        <a href="#" class="icon"><fa-icon [icon]="faGoogle"></fa-icon></a>
+        <a href="#" class="icon"><fa-icon [icon]="faFacebookF"></fa-icon></a>
+        <a href="#" class="icon"><fa-icon [icon]="faLinkedinIn"></fa-icon></a>
+        <a href="#" class="icon"><fa-icon [icon]="faXTwitter"></fa-icon></a>
+      </div>
+      <span>or use your email and password</span>
+      <input type="email"    [(ngModel)]="loginObj.username" name="email" placeholder="Email">
+      <input type="password" [(ngModel)]="loginObj.password" name="psswd" placeholder="Password">
+      <a href="#">Forgot Password?</a>
+      <button (click)="onLogin()">Sign In</button>
     </form>
   </div>
-  <!-- Login Form Ends -->
-  <!-- Register Form Starts -->
-  <div class="form__container form__container-register" *ngIf="!isLoginForm">
-    <form action="" class="form">
-      <h3 class="form__heading"> Create Account</h3>
-      <ul class="list list__inline list__social">
-        <li class="list__item list__social__item">
-          <a href="#" class="list__link">
-            <fa-icon [icon]="faFacebookF"></fa-icon>
-          </a>
-        </li>
-        <li class="list__item list__social__item">
-          <a href="#" class="list__link">
-            <fa-icon [icon]="faGooglePlusG"></fa-icon>
-          </a>
-        </li>
-        <li class="list__item list__social__item">
-          <a href="#" class="list__link">
-            <fa-icon [icon]="faLinkedinIn"></fa-icon>
-          </a>
-        </li>
-      </ul>
-      <p class="form__text">or use your email for registeration</p>
-      <input type="text" name="name" placeholder="name" [(ngModel)]="signUpObj.name" class="form__field">
-      <input type="email" name="email" placeholder="email" [(ngModel)]="signUpObj.email" class="form__field">
-      <input type="password" name="password" placeholder="password" [(ngModel)]="signUpObj.password" class="form__field">
-      <button type="submit" class="btn btn--main" (click)="onRegister()">Sign Up</button>
-    </form>
-  </div>
-  <!-- Register Form Ends -->
-  <!-- Overlay container Starts -->
-  <div class="overlay-container">
-    <!-- Right Overlay Starts -->
-    <div class="overlay overlay--right" *ngIf="isLoginForm">
-      <h3 class="overlay__heading">Hello Friend</h3>
-      <p class="overlay__desc">Enter your personal details and start journey with us</p>
-      <button type="button" class="btn btn--main-outline btn-overlay" (click)="_toggleForm()">Sign Up</button>
+
+  <div class="toggle-container">
+    <div class="toggle">
+
+      <div class="toggle-panel toggle-left">
+        <h1>Welcome Back!</h1>
+        <p>Enter your personal details to use all of site features.</p>
+        <button class="hidden" id="login" (click)="_toggleForm()">Sign In</button>
+      </div>
+
+      <div class="toggle-panel toggle-right">
+        <h1>Hello, Subscriber!</h1>
+        <p>Register with your personal details to use all of site features.</p>
+        <button class="hidden" id="register" (click)="_toggleForm()">Sign Up</button>
+      </div>
     </div>
-    <!-- Right Overlay Ends -->
-    <!-- Left Overlay Starts -->
-    <div class="overlay overlay--left" *ngIf="!isLoginForm">
-      <h3 class="overlay__heading">Welcome Back!</h3>
-      <p class="overlay__desc">Keep connected with us please login with your personal info</p>
-      <button type="button" class="btn btn--main-outline btn-overlay" (click)="_toggleForm()">Sign In</button>
-    </div>
-    <!-- Left Overlay Ends -->
   </div>
-  <!-- Overlay Container Ends -->
 </div>
