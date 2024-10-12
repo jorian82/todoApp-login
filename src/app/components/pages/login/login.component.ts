@@ -2,8 +2,8 @@ import {Component, inject} from '@angular/core';
 import { NgClass, NgIf } from "@angular/common";
 import { faFacebookF, faLinkedinIn, faGoogle, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
-import { SignUpModel } from "../../../models/SignUp.model";
-import { LoginModel } from "../../../models/Login.model";
+import { SignUpModel } from "../../../models/signup.model";
+import { LoginModel } from "../../../models/login.model";
 import { FormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
 
@@ -50,6 +50,7 @@ export class LoginComponent {
       users.push(this.signUpObj);
       localStorage.setItem('todoAppUsers', JSON.stringify(users));
     }
+    alert('User registered sussessfully');
   }
 
   onLogin = () => {
