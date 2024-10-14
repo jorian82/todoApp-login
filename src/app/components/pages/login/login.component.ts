@@ -6,6 +6,9 @@ import { SignUpModel } from "../../../models/signup.model";
 import { LoginModel } from "../../../models/login.model";
 import { FormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
+import { UserService } from '../../../services/user.service';
+import { Token } from '../../../models/user.model';
+import { TokenStorageService } from '../../../services/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +25,8 @@ import { Router } from "@angular/router";
 export class LoginComponent {
 
   routerService = inject(Router);
+  userService = inject(UserService);
+  tokenService = inject(TokenStorageService);
 
   isLoginForm: boolean = true;
   activeForm: string = '';
@@ -67,6 +72,24 @@ export class LoginComponent {
         this.routerService.navigateByUrl('/').then(()=>{})
       }
     }
+  }
+
+  onSignIn = () => {
+    this.userService.signin(this.loginObj)
+        .subscribe({
+          next: (token: Token) => {
+            this.tokenService.saveToken(token.accessToken);
+            this.tokenService.saveUser(token);
+            this.routerService.navigateByUrl('/dashboard');
+          },
+          error: (message: string) => {
+            this.tokenService.signOut();
+            alert(message);
+          },
+          complete: () => {
+            console.info('complete');
+          }
+        })
   }
 
 }

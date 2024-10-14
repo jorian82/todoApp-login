@@ -25,3 +25,12 @@ export class User {
     password: string;
     roles: number[];
   }
+
+  export interface Token {
+    id: number;
+    username: string;
+    email: string;
+    roles: string[];
+    accessToken: string;
+    refreshToken: string;
+  }

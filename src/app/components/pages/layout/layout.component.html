@@ -4,7 +4,8 @@
             <a class="navbar-brand" href="#">
                 To Do app
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" 
+                        aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -15,32 +16,39 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" routerLink="Dashboard">
+                            <a class="nav-link" aria-current="page" routerLink="/dashboard">
                                 <fa-icon [icon]="faHome"></fa-icon>
                                 Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" routerLink="Console">
+                            <a class="nav-link" aria-current="page" routerLink="/console">
                                 <fa-icon [icon]="faTerminal"></fa-icon>
                                 Console
                             </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <fa-icon [icon]="faUserTie"></fa-icon>
+                                <fa-icon [icon]="faUserTie"></fa-icon>
+                                User
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" routerLink="profile">Profile</a></li>
+                                <li>
+                                    <span class="dropdown-item pointer" routerLink="/profile">
+                                        <fa-icon [icon]="faIdCard"></fa-icon>
+                                        Profile
+                                    </span>
+                                </li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" routerLink="/">Log out</a></li>
+                                <li>
+                                    <span class="dropdown-item pointer" (click)="signout()">
+                                        <fa-icon [icon]="faRightFromBracket"></fa-icon>
+                                        Log out
+                                    </span>
+                                </li>
                             </ul>
                         </li>
                     </ul>
-                    <!-- <form class="d-flex mt-3" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form> -->
                 </div>
             </div>
         </div>
@@ -57,8 +65,6 @@
                     <fa-icon [icon]="faGithubAlt"></fa-icon> | 
                     <fa-icon [icon]="faLinkedinIn"></fa-icon>
                 </span>
-              <!-- <span class="nav-link" aria-current="page">
-              </span> -->
             </li>
         </ul>
         <ul class="nav justify-content-center">
@@ -67,8 +73,6 @@
                     <fa-icon [icon]="faCopyright"></fa-icon>
                     {{today | date : 'YYYY'}}
                 </span>
-                <!-- <span class="nav-link">
-                </span> -->
             </li>
         </ul>
         <ul class="nav justify-content-end">
