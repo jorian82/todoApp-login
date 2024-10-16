@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { SignUpModel } from '../models/signup.model';
+import { SignupModel } from '../models/signup.model';
 import { API_URL, httpOptions } from '../helpers/constants';
 import { LoginModel } from '../models/login.model';
 import { Token, User } from '../models/user.model';
-import { map } from 'rxjs/internal/operators/map';
-import { Role } from '../models/rol.model';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,24 +13,31 @@ export class UserService {
 
   private http = inject(HttpClient);
   
-  signup = (user: SignUpModel) => {
-    return this.http.post(API_URL+'auth/signup', { username: user.name, email: user.email, password: user.password }, httpOptions);
+  public signup = (user: SignupModel) => {
+    console.log('user: ',user);
+    return this.http.post<string>(
+        API_URL+'auth/signup', 
+        { username: user.name, email: user.email, password: user.password }, 
+        httpOptions
+      ).pipe(map( (resp: any) => {
+        return resp?.message;
+      }));
   }
 
-  signin = (user: LoginModel) => {
+  public signin = (user: LoginModel) => {
     return this.http.post<Token>(API_URL+'auth/signin', user, httpOptions);
   }
 
-  verifyAccess = () => {
-    return this.http.get(API_URL + 'user/test/all', httpOptions);
+  public verifyAccess = () => {
+    return this.http.get<string>(API_URL + 'user/test/all', httpOptions);
   }
 
-  verifyAdmin = () => {
-    return this.http.get(API_URL + 'user/test/admin', httpOptions);
+  public verifyAdmin = () => {
+    return this.http.get<string>(API_URL + 'user/test/admin', httpOptions);
   }
 
-  verifyCreator = () => {
-    return this.http.get(API_URL + 'user/test/mod', httpOptions);
+  public verifyCreator = () => {
+    return this.http.get<string>(API_URL + 'user/test/mod', httpOptions);
   }
 
   // fetchUsers() {

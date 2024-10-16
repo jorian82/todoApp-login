@@ -1,4 +1,7 @@
 <div class="login-container">
+  <div *ngIf="showAlert">
+    <app-alert [type]="alertType" [content]="alertContent"></app-alert>
+  </div>
   <div class="container" id="container" [ngClass]="activeForm">
     <div class="form-container sign-up">
       <form action="#">
@@ -13,7 +16,7 @@
         <input type="text"     [(ngModel)]="signUpObj.name"     name="name" placeholder="User name">
         <input type="email"    [(ngModel)]="signUpObj.email"    name="email" placeholder="Email">
         <input type="password" [(ngModel)]="signUpObj.password" name="psswd" placeholder="Password">
-        <button (click)="onRegister()">Sign Up</button>
+        <button (click)="onSignUp()">Sign Up</button>
       </form>
     </div>
 
