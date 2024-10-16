@@ -23,6 +23,16 @@ $sec-color: #3498db;
   font-family: "Montserrat", sans-serif;
 }
 
+.login-container {
+  background-color: #c9d6ff;
+  background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .container{
   background-color: white;
   border-radius: 30px;
@@ -213,4 +223,8 @@ $sec-color: #3498db;
 
 .container.active .toggle-right{
   transform: translateX(200%);
+}
+
+.pointer {
+  cursor: pointer;
 }
