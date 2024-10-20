@@ -5,6 +5,7 @@ import { API_URL, httpOptions } from '../helpers/constants';
 import { LoginModel } from '../models/login.model';
 import { Token, User } from '../models/user.model';
 import { map } from 'rxjs';
+import { Role } from '../models/rol.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,21 +41,21 @@ export class UserService {
     return this.http.get<string>(API_URL + 'user/test/mod', httpOptions);
   }
 
-  // fetchUsers() {
-  //   let users: User[] = [];
-  //   return this.http.get<User[]>(API_URL+'users', httpOptions)
-  //   .pipe(
-  //     map( response => {
-  //       let data = JSON.parse(JSON.stringify(response)).data;
-  //       data.forEach( (item: { roles: any[]; username: string; fullName: string; email: string; id: number; }) => {
-  //         let roles: Role[] = [];
-  //         item.roles.forEach( (rol:any) => roles.push(new Role(rol.name, rol.id)));
-  //         users.push(
-  //           new User(item.username, item.fullName, item.email, roles, item.id)
-  //         );
-  //       });
-  //       return users;
-  //     })
-  //   );
-  // };
+  fetchUsers() {
+    let users: User[] = [];
+    return this.http.get<User[]>(API_URL+'users', httpOptions)
+    .pipe(
+      map( response => {
+        let data = JSON.parse(JSON.stringify(response)).data;
+        data.forEach( (item: { roles: any[]; username: string; fullName: string; email: string; id: number; }) => {
+          let roles: Role[] = [];
+          item.roles.forEach( (rol:any) => roles.push(new Role(rol.name, rol.id)));
+          users.push(
+            new User(item.username, item.fullName, item.email, roles, item.id)
+          );
+        });
+        return users;
+      })
+    );
+  };
 }
