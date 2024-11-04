@@ -30,7 +30,7 @@ export class UserService {
   }
 
   public verifyAccess = () => {
-    return this.http.get<string>(API_URL + 'user/test/all', httpOptions);
+    return this.http.get<string>(API_URL + 'user/test/user', httpOptions);
   }
 
   public verifyAdmin = () => {

@@ -1,0 +1,35 @@
+$warn: #990000;
+$blue: #000099;
+$green: #007700;
+$purple: #512da8;
+
+.dm-page-center {
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    // border: 5px solid #FFFF00;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .pointer {
+    cursor: pointer;
+  }
+
+  .warn-color {
+    color: $warn;
+  }
+
+  .blue-color {
+    color: $blue;
+  }
+
+  .green-color {
+    color: $green;
+  }
+
+  .purple-color {
+    color: $purple;
+  }
