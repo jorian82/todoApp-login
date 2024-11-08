@@ -8,6 +8,8 @@ import { AdminLayoutComponent } from './components/pages/admin/layout/admin-layo
 import { adminGuard } from './helpers/admin.guard';
 import { UsersComponent } from './components/pages/admin/layout/users/users.component';
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
+import { RolesComponent } from './components/pages/admin/layout/roles/roles.component';
+import { TasksComponent } from './components/pages/admin/layout/tasks/tasks.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +30,12 @@ export const routes: Routes = [
         path: 'admin', component: AdminLayoutComponent, canActivate:[adminGuard], canActivateChild: [adminGuard], children: [
           {
             path: 'users', component: UsersComponent
+          },
+          {
+            path: 'roles', component: RolesComponent
+          },
+          {
+            path: 'tasks', component: TasksComponent
           }
         ]
       }

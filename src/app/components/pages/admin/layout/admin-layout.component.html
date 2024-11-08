@@ -1,1 +1,16 @@
-<p>layout works!</p>
+<div class="tabs-container">
+    <ul class="nav nav-tabs nav-fill justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="users" routerLinkActive="active">Users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="roles" routerLinkActive="active">Roles</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="tasks" routerLinkActive="active">Tasks</a>
+        </li>
+    </ul>    
+</div>
+<div class="admin-container">
+    <router-outlet></router-outlet>
+</div>

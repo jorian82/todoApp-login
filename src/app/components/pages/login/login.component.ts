@@ -92,9 +92,10 @@ export class LoginComponent implements OnDestroy {
               this.tokenService.saveUser(token);
               this.routerService.navigateByUrl('/dashboard');
             },
-            error: (message: string) => {
+            error: (message: any) => {
               this.tokenService.signOut();
-              alert(message);
+              // console.log('messsage: ',message);
+              alert(message.error.message);
             },
             complete: () => {
               console.info('complete');

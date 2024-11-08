@@ -23,10 +23,13 @@ export const adminGuard: CanActivateFn = (route, state) => {
         }
       }
     )
+  } else {
+    console.log("admin guard user: ",user);
+    tokenService.signOut();
+    router.navigateByUrl('/');
+    return false;  
   }
 
-  console.log("admin guard user: ",user);
-  tokenService.signOut();
-  router.navigateByUrl('/dashboard');
-  return false;
+  return true;
+
 };
