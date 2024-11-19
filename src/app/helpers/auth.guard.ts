@@ -17,7 +17,7 @@ export const authGuard: CanActivateFn = (route, state) => {
         return true;
       },
       error: (e) => {
-        console.log("error: ",e);
+        // console.log("error: ",e);
         tokenService.signOut();
         router.navigateByUrl('/');
         return false;
@@ -25,6 +25,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     })
   } else {
     tokenService.signOut();
+    router.navigateByUrl('/');
     return false;
   }
   return true;

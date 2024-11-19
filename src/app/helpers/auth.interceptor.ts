@@ -19,7 +19,3 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq);
 };
-
-// export const authInterceptorProviders = [
-//   { provide: HTTP_INTERCEPTORS, use}
-// ]

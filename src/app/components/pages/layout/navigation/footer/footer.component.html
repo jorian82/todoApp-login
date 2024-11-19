@@ -1,0 +1,25 @@
+<nav class="navbar bg-dark fixed-bottom" data-bs-theme="dark">
+    <ul class="nav justify-content">
+        <li class="nav-item">
+            <span class="nav-link" aria-current="page">
+                <fa-icon [icon]="faGithubAlt"></fa-icon> | 
+                <fa-icon [icon]="faLinkedinIn"></fa-icon>
+            </span>
+        </li>
+    </ul>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <span class="nav-link" aria-current="page">
+                <fa-icon [icon]="faCopyright"></fa-icon>
+                {{today | date : 'YYYY'}}
+            </span>
+        </li>
+    </ul>
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <span class="nav-link" aria-current="page">
+                SSDE
+            </span>
+        </li>
+    </ul>
+</nav>

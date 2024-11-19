@@ -9,4 +9,4 @@ const TOKEN_HEADER_KEY = 'x-access-token';
 
 export const httpOptions = {
     headers: new HttpHeaders( {'Content-Type':'application/json'})
-  }
+}

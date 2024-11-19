@@ -98,7 +98,7 @@ export class LoginComponent implements OnDestroy {
               alert(message.error.message);
             },
             complete: () => {
-              console.info('complete');
+              // console.info('complete');
             }
           })
     }
@@ -114,7 +114,7 @@ export class LoginComponent implements OnDestroy {
             },
             error: (error) => {
               this.triggerAlert('danger', error.error.message, 5000);
-              console.log('error: ',error)
+              // console.log('error: ',error)
             }
           });
     }

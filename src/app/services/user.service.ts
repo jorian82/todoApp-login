@@ -15,7 +15,7 @@ export class UserService {
   private http = inject(HttpClient);
   
   public signup = (user: SignupModel) => {
-    console.log('user: ',user);
+    // console.log('user: ',user);
     return this.http.post<string>(
         API_URL+'auth/signup', 
         { username: user.name, email: user.email, password: user.password }, 
