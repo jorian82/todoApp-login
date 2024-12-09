@@ -1,17 +1,20 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { TokenStorageService } from '../../../../../services/token-storage.service';
 import { Router, RouterLink } from '@angular/router';
 import { faHome, faIdCard, faRightFromBracket, faScrewdriverWrench, faTerminal, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from '../../../../../services/user.service';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FaIconComponent, RouterLink],
+  imports: [FaIconComponent, RouterLink, NgIf, AsyncPipe],
   templateUrl: './header.component.html',
   styleUrls: ['../../layout.component.scss', './header.component.scss']
 })
 export class HeaderComponent {
+  userService = inject(UserService);
   tokenService = inject(TokenStorageService);
   routerService = inject(Router);
 
@@ -20,6 +23,8 @@ export class HeaderComponent {
   faTerminal = faScrewdriverWrench;
   faIdCard = faIdCard;
   faRightFromBracket = faRightFromBracket;
+
+  $isAdmin = this.userService.$isAdmin
 
   signout = () => {
     this.tokenService.signOut();

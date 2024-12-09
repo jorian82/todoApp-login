@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy} from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { NgClass, NgIf } from "@angular/common";
 import { faFacebookF, faLinkedinIn, faGoogle, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
@@ -6,11 +6,14 @@ import { LoginModel } from "../../../models/login.model";
 import { FormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
 import { UserService } from '../../../services/user.service';
-import { Token } from '../../../models/user.model';
+import { Token, User } from '../../../models/user.model';
 import { TokenStorageService } from '../../../services/token-storage.service';
 import { Subscription } from 'rxjs';
 import { AlertComponent } from "../layout/common/alert/alert.component";
-import { SignupModel } from '../../../models/signup.model';
+import { SignUpModel } from '../../../models/signUp.model';
+import { Store } from "@ngrx/store";
+import { resetUserState, setToken, setUser } from "../../../states/user.actions";
+import { Role } from "../../../models/rol.model";
 
 @Component({
   selector: 'app-login',
@@ -30,6 +33,7 @@ export class LoginComponent implements OnDestroy {
   routerService = inject(Router);
   userService = inject(UserService);
   tokenService = inject(TokenStorageService);
+  storeService = inject(Store);
 
   isLoginForm: boolean = true;
   activeForm: string = '';
@@ -43,7 +47,7 @@ export class LoginComponent implements OnDestroy {
   faLinkedinIn = faLinkedinIn;
   faXTwitter = faXTwitter;
 
-  signUpObj: SignupModel = new SignupModel();
+  signUpObj: SignUpModel = new SignUpModel();
   loginObj: LoginModel = new LoginModel();
 
   onSignInSubs: Subscription = new Subscription();
@@ -64,16 +68,16 @@ export class LoginComponent implements OnDestroy {
   public validateForm = (type: string) => {
     if(type === 'signin') {
       if(
-            this.loginObj.username == '' || 
+            this.loginObj.username == '' ||
             this.loginObj.password == ''
       ) {
         this.triggerAlert('danger', "Missing username and/or password", 5000);
         return false;
-      } 
+      }
     }else {
       if(
-            this.signUpObj.email == '' || 
-            this.signUpObj.name == '' || 
+            this.signUpObj.email == '' ||
+            this.signUpObj.name == '' ||
             this.signUpObj.password ==''
       ) {
         this.triggerAlert('danger', 'No empty fields allowed', 5000);
@@ -90,11 +94,15 @@ export class LoginComponent implements OnDestroy {
             next: (token: Token) => {
               this.tokenService.saveToken(token.accessToken);
               this.tokenService.saveUser(token);
-              this.routerService.navigateByUrl('/dashboard');
+              this.userService.setLoginState(token.roles);
+              this.storeService.dispatch(setToken({token: token}));
+              this.storeService.dispatch(setUser({user: this.buildUserFromToken(token)}));
+              this.routerService.navigateByUrl('/dashboard').then(() => {});
             },
             error: (message: any) => {
               this.tokenService.signOut();
-              // console.log('messsage: ',message);
+              this.userService.signout();
+              this.storeService.dispatch(resetUserState());
               alert(message.error.message);
             },
             complete: () => {
@@ -110,7 +118,7 @@ export class LoginComponent implements OnDestroy {
           .subscribe({
             next: (message: string) => {
               this.triggerAlert('success', message, 5000);
-              this.signUpObj = new SignupModel();
+              this.signUpObj = new SignUpModel();
             },
             error: (error) => {
               this.triggerAlert('danger', error.error.message, 5000);
@@ -123,6 +131,14 @@ export class LoginComponent implements OnDestroy {
   ngOnDestroy(): void {
       this.onSingUpSubs.unsubscribe();
       this.onSignInSubs.unsubscribe();
+  }
+
+  buildUserFromToken = (token: Token) => {
+    let roles: Role[] = [];
+    if(token.roles) {
+      roles = token.roles.map((rol:string)=>new Role(rol,0));
+    }
+    return new User(token.username,'',token.email,roles,0);
   }
 
   resetAlert = () => {

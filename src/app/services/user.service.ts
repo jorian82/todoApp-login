@@ -1,10 +1,11 @@
+import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { SignupModel } from '../models/signup.model';
+import { SignUpModel } from '../models/signUp.model';
 import { API_URL, httpOptions } from '../helpers/constants';
 import { LoginModel } from '../models/login.model';
 import { Token, User } from '../models/user.model';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { Role } from '../models/rol.model';
 
 @Injectable({
@@ -12,17 +13,36 @@ import { Role } from '../models/rol.model';
 })
 export class UserService {
 
+  private _isLoggedIn = new BehaviorSubject<boolean>(false);
+  private _isAdmin = new BehaviorSubject<boolean>(false);
+  private _isCreator = new BehaviorSubject<boolean>(false);
+
+  public $isAdmin = this._isAdmin.asObservable();
+  public $isCreator = this._isCreator.asObservable();
+  public $isLoggedIn = this._isLoggedIn.asObservable();
+
   private http = inject(HttpClient);
-  
-  public signup = (user: SignupModel) => {
+
+  public signup = (user: SignUpModel) => {
     // console.log('user: ',user);
     return this.http.post<string>(
-        API_URL+'auth/signup', 
-        { username: user.name, email: user.email, password: user.password }, 
+        API_URL+'auth/signup',
+        { username: user.name, email: user.email, password: user.password },
         httpOptions
       ).pipe(map( (resp: any) => {
         return resp?.message;
       }));
+  }
+
+  public setLoginState = (roles: string[]) => {
+    this._isLoggedIn.next(true);
+    roles.includes("ROLE_ADMIN")?this._isAdmin.next(true):roles.includes("ROLE_CREATOR")?this._isCreator.next(true):true;
+  }
+
+  public signout = () => {
+    this._isLoggedIn.next(false);
+    this._isCreator.next(false);
+    this._isAdmin.next(false);
   }
 
   public signin = (user: LoginModel) => {
@@ -39,6 +59,19 @@ export class UserService {
 
   public verifyCreator = () => {
     return this.http.get<string>(API_URL + 'user/test/mod', httpOptions);
+  }
+
+  public getUserProfile = (username: string) => {
+    return this.http.get<User>(API_URL + 'user/profile/'+username, httpOptions).pipe(
+      map( (response:any) => {
+        let roles: Role[] = [];
+        response.roles.map( (rol: string) => {
+          roles.push(new Role(rol,0));
+        });
+
+        return new User(response.username, response.fullName, response.email, roles, response.id);
+      })
+    );
   }
 
   fetchUsers() {

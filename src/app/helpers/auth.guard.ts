@@ -12,20 +12,18 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   if(user!= null) {
     userService.verifyAccess().subscribe({
-      next: (resp) => {
-        // console.log('user verified: ',resp);
+      next: (resp: string) => {
         return true;
       },
       error: (e) => {
-        // console.log("error: ",e);
         tokenService.signOut();
-        router.navigateByUrl('/');
+        router.navigateByUrl('/').then(() => {});
         return false;
       }
     })
   } else {
     tokenService.signOut();
-    router.navigateByUrl('/');
+    router.navigateByUrl('/').then(() => {});
     return false;
   }
   return true;

@@ -1,0 +1,35 @@
+.outer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.card {
+  border: 1px solid transparent;
+}
+
+.list-group-item {
+  border: 1px solid transparent;
+}
+
+.btn-2 {
+  width: 45%;
+  margin: 5px;
+}
+
+.btn-3 {
+  width: 30%;
+  margin: 3px;
+}
+
+.btn-4 {
+  width: 23%;
+  margin: 1px;
+}
+
+.btn-5 {
+  width: 18%;
+  margin: 1px;
+}

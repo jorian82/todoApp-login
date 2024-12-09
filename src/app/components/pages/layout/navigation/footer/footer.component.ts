@@ -10,7 +10,7 @@ import { faCopyright } from '@fortawesome/free-solid-svg-icons';
   standalone: true,
   imports: [FaIconComponent, DatePipe, RouterLink],
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss','../../layout.component.scss']
+  styleUrls: ['./footer.component.scss','../../layout.component.scss','../../../../../../styles.scss']
 })
 export class FooterComponent {
   faGithubAlt = faGithubAlt

@@ -1,1 +1,20 @@
-<p>profile works!</p>
+<div class="container">
+  <div class="card" *ngIf="currentUser$ | async; let user">
+    <div class="card-body">
+      <h5 class="card-title">{{ user.fullName?user.fullName:user.username }}</h5>
+      <p class="card-text">Username: {{ user.username }}</p>
+    </div>
+    <ul class="list-group list-group-flush" >
+      <li class="list-group-item">Email: {{ user.email }}</li>
+      <li class="list-group-item">Roles:</li>
+      <ol *ngFor="let role of user.roles">
+        <li>{{role.name}}</li>
+      </ol>
+    </ul>
+    <div class="card-body">
+      <!-- <button (click)="logout()" class="btn btn-primary btn-5">Log Out</button> -->
+      <button routerLink="/profile-edit/{{user.username}}" routerLinkActive="router-link-active"  class="btn btn-success btn-5">Edit Profile</button>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

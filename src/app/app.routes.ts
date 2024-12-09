@@ -10,6 +10,10 @@ import { UsersComponent } from './components/pages/admin/layout/users/users.comp
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
 import { RolesComponent } from './components/pages/admin/layout/roles/roles.component';
 import { TasksComponent } from './components/pages/admin/layout/tasks/tasks.component';
+import {provideState} from "@ngrx/store";
+import {userStateFeatureKey, userStateReducer} from "./states/user.reducer";
+import { EditProfileComponent } from './components/pages/layout/pages/profile/edit-profile/edit-profile.component';
+import { EditTaskComponent } from './components/pages/layout/pages/dashboard/edit-task/edit-task.component';
 
 export const routes: Routes = [
   {
@@ -19,12 +23,30 @@ export const routes: Routes = [
     path: 'login', component: LoginComponent
   },
   {
-    path: '', component: LayoutComponent, canActivateChild: [authGuard], children: [
+    path: '', component: LayoutComponent,
+    canActivateChild: [authGuard],
+    // providers: [
+    //   provideState({name: userStateFeatureKey, reducer: userStateReducer})
+    // ],
+    children: [
       {
-        path: 'dashboard', component: DashboardComponent, 
+        path: 'dashboard', component: DashboardComponent
       },
       {
-        path: 'profile', component: ProfileComponent, 
+        path: 'tasks', component: LayoutComponent, children: [
+          {
+            path: '', component: EditTaskComponent
+          },
+          {
+            path: 'edit/:id', component: EditTaskComponent
+          }
+        ]
+      },
+      {
+        path: 'profile', component: ProfileComponent
+      },
+      {
+        path: 'profile-edit/:username', component: EditProfileComponent
       },
       {
         path: 'admin', component: AdminLayoutComponent, canActivate: [adminGuard], canActivateChild: [adminGuard], children: [
@@ -42,7 +64,11 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'not-found', component: NotFoundComponent
+    path: 'not-found', component: LayoutComponent, children: [
+      {
+        path: '', component: NotFoundComponent
+      }
+    ]
   },
   {
     path: '**', redirectTo: 'not-found'
